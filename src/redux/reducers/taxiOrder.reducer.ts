@@ -3,9 +3,10 @@ import { UserActionTypes } from '../../types/orderTaxi'
 
 const initialState: UserOrderState = {
     address: '',
+    coordinates: null,
     closestCar: null,
     carsList: null,
-    isValidating: false
+    isValidating: false,
 }
 
 export default (state = initialState, action: UserAction): UserOrderState => {
