@@ -8,17 +8,21 @@ import { useAction } from './hooks/useAction';
 
 const App: React.FC = () => {
 
-  const { setAddress } = useAction();
+  const { setAddress, getPlace } = useAction();
   const address = useTypedSelector((store: RootState) => store.order.address);
+
   const handleInput = (e: any): void => {
-    setAddress(e.target.value)
+    setAddress(e.target.value);
+    getPlace(address);
+
   }
   return (
     <div>
       <OrderMap />
 
       <div>
-        <span>Откуда </span>
+
+        <span >Откуда </span>
         <TextField value={address} onChange={(e) => handleInput(e)} id="outlined-basic" label="Outlined" variant="outlined" />
       </div>
 
