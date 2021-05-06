@@ -18,6 +18,9 @@ export enum UserActionTypes {
     FINISH_LOADING = 'FINISH_LOADING',
     START_LOADING = 'START_LOADING',
     SET_COORDINATES = 'SET_COORDINATES',
+    SET_VALIDATED_STATUS = 'SET_VALIDATED_STATUS',
+    SET_CARS = 'SET_CARS',
+    SET_CLOSEST_CAR = 'SET_CLOSEST_CAR',
 
 }
 
@@ -28,20 +31,35 @@ export interface CarInfo {
     color: string,
     distance: number,
     coordinates: Coordinates,
-}
-export interface ClosestCar extends CarInfo {
-    code: string,
+    code: string
 }
 export type CarsList = Array<CarInfo>
 
 export type Coordinates = number[];
 
 //store
-export interface UserOrderState {
+export interface OrderState {
     address: string,
-    closestCar: ClosestCar | null,
+    closestCar: CarInfo | null,
     carsList: CarsList | null,
     coordinates: Coordinates,
-    isValidating: boolean,
+    isValidated: boolean,
     isLoading: boolean,
+}
+
+//requests
+// export interface UserOrderRequest {}
+
+export interface CarSearchRequest {
+    // формат времени ГГГГММДДччммсс 
+    //str or num?
+    source_time: number,
+    addresses: adressesList
+}
+export type adressesList = AddressInfo[]
+
+export interface AddressInfo {
+    address: string,
+    lat: number,
+    lon: number
 }

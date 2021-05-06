@@ -1,15 +1,15 @@
-import { UserOrderState, UserAction, UserActionTypes } from '../../types/orderTaxi'
+import { OrderState, UserAction, UserActionTypes } from '../../types/orderTaxi'
 
-const initialState: UserOrderState = {
+const initialState: OrderState = {
     address: '',
     coordinates: [55.762115, 37.609631],
     closestCar: null,
     carsList: null,
-    isValidating: false,
+    isValidated: false,
     isLoading: false,
 }
 
-export default (state = initialState, action: UserAction): UserOrderState => {
+export default (state = initialState, action: UserAction): OrderState => {
     switch (action.type) {
 
         case UserActionTypes.SET_ADDRESS:
@@ -20,7 +20,20 @@ export default (state = initialState, action: UserAction): UserOrderState => {
             return { ...state, isLoading: false }
         case UserActionTypes.SET_COORDINATES:
             return { ...state, coordinates: action.payload }
-
+        case UserActionTypes.SET_VALIDATED_STATUS:
+            return { ...state, isValidated: action.payload }
+        case UserActionTypes.SET_CARS:
+            return { ...state, carsList: action.payload }
+        case UserActionTypes.SET_CLOSEST_CAR:
+            let cars = state.carsList;
+            let car = null;
+            if (cars) {
+                cars.sort((a, b) =>
+                    a.distance - b.distance
+                )
+                car = cars[0];
+            }
+            return { ...state, closestCar: car }
 
         default:
             return state
