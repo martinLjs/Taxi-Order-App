@@ -9,6 +9,6 @@ export const getCoordinates = (address: string) => {
 //change in reducer
 
 export const getAddress = (coords: string) => {
-    const url: string = `https://geocode-maps.yandex.ru/1.x/?apikey=471e0e07-9df5-4819-90db-5510c94c00c4&geocode=${coords}`;
+    const url: string = `https://geocode-maps.yandex.ru/1.x/?apikey=471e0e07-9df5-4819-90db-5510c94c00c4&format=json&geocode=${coords}`;
     return getData(url);
 }

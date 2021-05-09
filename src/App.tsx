@@ -17,10 +17,16 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (isValidated) {
-      const date = new Date();
-      //formate
+      const now = new Date();
+      const date = +now
+        .toISOString()
+        .split('')
+        .filter((i) => !isNaN(+i))
+        .join('')
+        .slice(0, 14)
+
       const request: CarSearchRequest = {
-        source_time: 1,
+        source_time: date,
         addresses: [{
           address: address,
           lat: coords[0],

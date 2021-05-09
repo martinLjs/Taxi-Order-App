@@ -1,8 +1,6 @@
 import { CarSearchRequest, CarsList } from './../../types/orderTaxi';
 import { getData, getAddress } from './../../api/index';
 import { Coordinates, UserActionTypes } from '../../types/orderTaxi'
-import { Dispatch } from 'redux'
-import { UserAction } from '../../types/orderTaxi'
 // export const setAddress = (address: string) => {
 //     return (dispatch: Dispatch<UserAction>) => {
 //         dispatch({ type: UserActionTypes.SET_ADDRESS, payload: address })
@@ -22,6 +20,8 @@ export const getPlace = (address: string) => {
                         const addresses = res.response.GeoObjectCollection.featureMember;
                         addresses.filter((e: any) => e.GeoObject.description === 'Москва, Россия')
                         if (addresses[0]) {
+                            console.log(addresses)
+                            //filter not work
                             const addressCoordinates = addresses[0].GeoObject.Point.pos.split(' ');
                             const newCoordinates = [Number(addressCoordinates[1]), Number(addressCoordinates[0])]
                             dispatch(setCoordinates(newCoordinates))
@@ -36,24 +36,25 @@ export const getPlace = (address: string) => {
 }
 export const setPlace = (coords: string) => {
     return (dispatch: any) => {
-        const newCoordinates = coords.split(' ').map(i => Number(i));
+        const newCoordinates = coords
+            .split(',')
+            .reverse()
+            .map(i => Number(i));
 
         dispatch(loadOn())
         getAddress(coords).then(
             (res: any) => {
                 dispatch(loadOff())
-                console.log(res)
-                //res.what?
                 dispatch(setCoordinates(newCoordinates))
-                dispatch(setAddress(res.address))
-                //isCorrect?
+                dispatch(setAddress(res.response.GeoObjectCollection.featureMember[0].GeoObject.name))
                 dispatch(setValidateStatus(true))
             }
         )
             .catch(
-                () => {
+                (err) => {
                     dispatch(setCoordinates(newCoordinates))
                     dispatch(setValidateStatus(false))
+                    console.log(err)
                 }
 
             )
@@ -66,17 +67,17 @@ export const searchCar = (requestInfo: CarSearchRequest) => {
         const result = require('../../utils/mocks/carsList.json');
         if (result.code === 0) {
             const carsData = result.data.crews_info;
-            // const cars = carsData.map((car: any) => {
-            //     ({
-            //         name: car.driver_name,
-            //         color: car.color,
-            //         distance: car.distance,
-            //         coordinates: [car.lat, car.lon],
-            //         code: car.code
-            //     })
+            const cars = carsData.map((car: any) =>
+                ({
+                    name: car.driver_name,
+                    color: car.color,
+                    distance: car.distance,
+                    coordinates: [car.lat, car.lon],
+                    code: car.code
+                })
 
-            // })
-            dispatch(setCars(carsData))
+            )
+            dispatch(setCars(cars))
         }
     }
 

@@ -24,6 +24,8 @@ export enum UserActionTypes {
 
 }
 
+//react
+export type placeMarks = Array<React.ComponentType> | null
 
 //states
 export interface CarInfo {
@@ -31,7 +33,8 @@ export interface CarInfo {
     color: string,
     distance: number,
     coordinates: Coordinates,
-    code: string
+    code: string,
+    id: number,
 }
 export type CarsList = Array<CarInfo>
 

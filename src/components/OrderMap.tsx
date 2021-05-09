@@ -2,21 +2,26 @@ import React, { useEffect, useState } from 'react';
 import { YMaps, Map, Placemark } from 'react-yandex-maps';
 import { useAction } from '../hooks/useAction';
 import { useTypedSelector } from '../hooks/useTypedSelector';
-import { Coordinates } from '../types/orderTaxi'
+import { Coordinates, placeMarks } from '../types/orderTaxi'
 
 const OrderMap: React.FC = () => {
     const { setPlace } = useAction();
     const coordinates = useTypedSelector(store => store.order.coordinates);
     const carsList = useTypedSelector(store => store.order.carsList);
-    const [carsMark, setCarsMark] = useState(null);
+    const [carsMarks, setCarsMarks] = useState<placeMarks>(null);
     useEffect(() => {
-        carsList?.map((car) => {
-            <Placemark geometry={car.coordinates} />
-        })
+        if (carsList && carsList.length !== 0) {
+            const placemarks: any[] = carsList.map((car) =>
+                (<Placemark key={car.id} geometry={car.coordinates} />)
+            )
+            setCarsMarks(placemarks);
+            console.log(carsList[0].coordinates)
+        }
+
     }, [carsList])
     const handleMapClick = (e: any) => {
         const coords: Coordinates = e.get('coords');
-        const coordsStr: string = coords.join(',');
+        const coordsStr: string = coords.reverse().join(',');
         setPlace(coordsStr);
     }
 
@@ -30,7 +35,7 @@ const OrderMap: React.FC = () => {
                 }}
                     modules={['control.ZoomControl', 'control.FullscreenControl', "geolocation", "geocode"]}>
                     <Placemark geometry={coordinates} />
-                    {carsList}
+                    {carsMarks}
                 </Map>
             </YMaps>
         </>
