@@ -21,17 +21,18 @@ export enum UserActionTypes {
     SET_VALIDATED_STATUS = 'SET_VALIDATED_STATUS',
     SET_CARS = 'SET_CARS',
     SET_CLOSEST_CAR = 'SET_CLOSEST_CAR',
-
+    SET_SELECTED_CAR = 'SET_SELECTED_CAR',
 }
 
 //react
-export type placeMarks = Array<React.ComponentType> | null
+export type jsx = Array<React.ComponentType> | null
 
 //states
 export interface CarInfo {
     name: string,
     color: string,
     distance: number,
+    number: string,
     coordinates: Coordinates,
     code: string,
     id: number,

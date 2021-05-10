@@ -1,6 +1,7 @@
-import { CarSearchRequest, CarsList } from './../../types/orderTaxi';
+import { CarInfo, CarSearchRequest, CarsList } from './../../types/orderTaxi';
 import { getData, getAddress } from './../../api/index';
 import { Coordinates, UserActionTypes } from '../../types/orderTaxi'
+import { stringify } from 'querystring';
 // export const setAddress = (address: string) => {
 //     return (dispatch: Dispatch<UserAction>) => {
 //         dispatch({ type: UserActionTypes.SET_ADDRESS, payload: address })
@@ -15,16 +16,14 @@ export const getPlace = (address: string) => {
             .then(
                 (res: any) => {
                     dispatch(loadOff())
-                    console.log(res)
                     if (res.response) {
                         const addresses = res.response.GeoObjectCollection.featureMember;
-                        addresses.filter((e: any) => e.GeoObject.description === 'Москва, Россия')
-                        if (addresses[0]) {
-                            console.log(addresses)
-                            //filter not work
+                        const relevantAdresses = addresses.filter((e: any) => e.GeoObject.description === 'Москва, Россия')
+                        if (relevantAdresses.length !== 0) {
                             const addressCoordinates = addresses[0].GeoObject.Point.pos.split(' ');
                             const newCoordinates = [Number(addressCoordinates[1]), Number(addressCoordinates[0])]
                             dispatch(setCoordinates(newCoordinates))
+                            dispatch(setValidateStatus(true))
                         }
                     }
                 }
@@ -67,17 +66,20 @@ export const searchCar = (requestInfo: CarSearchRequest) => {
         const result = require('../../utils/mocks/carsList.json');
         if (result.code === 0) {
             const carsData = result.data.crews_info;
-            const cars = carsData.map((car: any) =>
+            const cars: CarsList = carsData.map((car: any) =>
                 ({
-                    name: car.driver_name,
-                    color: car.color,
+                    name: car.car_mark + car.car_model,
+                    color: car.car_color,
                     distance: car.distance,
+                    number: car.car_number,
                     coordinates: [car.lat, car.lon],
-                    code: car.code
+                    code: car.car_code,
+                    id: car.crew_id,
                 })
 
             )
             dispatch(setCars(cars))
+            dispatch(setClosestCars())
         }
     }
 
@@ -95,9 +97,13 @@ export const setValidateStatus = (val: boolean) => {
 export const setCars = (carsList: CarsList) => {
     return ({ type: UserActionTypes.SET_CARS, payload: carsList })
 }
-export const setClosestCar = () => {
+export const setClosestCars = () => {
     return ({ type: UserActionTypes.SET_CLOSEST_CAR })
 }
+export const selectCar = (id: number) => {
+    return ({ type: UserActionTypes.SET_SELECTED_CAR, payload: id })
+}
+
 
 export const loadOn = () => {
     return ({ type: UserActionTypes.START_LOADING })

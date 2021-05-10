@@ -34,9 +34,15 @@ export default (state = initialState, action: UserAction): OrderState => {
                 car = cars[0];
             }
             return { ...state, closestCar: car }
-
+        case UserActionTypes.SET_SELECTED_CAR:
+            if (state.carsList) {
+                let newCar = state.carsList.filter((car) =>
+                    car.id === action.payload)
+                return { ...state, closestCar: newCar[0] }
+            }
+            return state;
         default:
-            return state
+            return state;
     }
 }
 

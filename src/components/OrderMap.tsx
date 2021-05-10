@@ -2,20 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { YMaps, Map, Placemark } from 'react-yandex-maps';
 import { useAction } from '../hooks/useAction';
 import { useTypedSelector } from '../hooks/useTypedSelector';
-import { Coordinates, placeMarks } from '../types/orderTaxi'
+import { Coordinates, jsx } from '../types/orderTaxi'
 
 const OrderMap: React.FC = () => {
     const { setPlace } = useAction();
     const coordinates = useTypedSelector(store => store.order.coordinates);
     const carsList = useTypedSelector(store => store.order.carsList);
-    const [carsMarks, setCarsMarks] = useState<placeMarks>(null);
+    const [carsMarks, setCarsMarks] = useState<jsx>(null);
     useEffect(() => {
         if (carsList && carsList.length !== 0) {
             const placemarks: any[] = carsList.map((car) =>
                 (<Placemark key={car.id} geometry={car.coordinates} />)
             )
             setCarsMarks(placemarks);
-            console.log(carsList[0].coordinates)
         }
 
     }, [carsList])

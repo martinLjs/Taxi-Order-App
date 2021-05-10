@@ -4,8 +4,11 @@ import TextField from '@material-ui/core/TextField';
 import { RootState } from './redux/store'
 import { useTypedSelector } from './hooks/useTypedSelector';
 import OrderMap from './components/OrderMap'
+import { YYYYmmddhhmmss } from './utils/helpers'
 import { useAction } from './hooks/useAction';
 import { CarSearchRequest } from './types/orderTaxi';
+import CarsList from './components/CarsList';
+import SelectedCar from './components/SelectedCar';
 
 const App: React.FC = () => {
 
@@ -13,20 +16,11 @@ const App: React.FC = () => {
   const address = useTypedSelector((store: RootState) => store.order.address);
   const isValidated = useTypedSelector(store => store.order.isValidated)
   const coords = useTypedSelector(store => store.order.coordinates)
-  const carsList = useTypedSelector(store => store.order.carsList)
 
   useEffect(() => {
     if (isValidated) {
-      const now = new Date();
-      const date = +now
-        .toISOString()
-        .split('')
-        .filter((i) => !isNaN(+i))
-        .join('')
-        .slice(0, 14)
-
       const request: CarSearchRequest = {
-        source_time: date,
+        source_time: YYYYmmddhhmmss(),
         addresses: [{
           address: address,
           lat: coords[0],
@@ -38,12 +32,7 @@ const App: React.FC = () => {
 
   }, [isValidated])
 
-  //add validate checker func
 
-  useEffect(() => {
-    // show cars by coords function
-
-  }, [carsList])
   const handleInput = (e: any): void => {
     setAddress(e.target.value);
     getPlace(address);
@@ -54,11 +43,14 @@ const App: React.FC = () => {
   }
   return (
     <div>
-      <OrderMap />
+      <div>Детали заказа</div>
+      <SelectedCar />
       <div>
         <span >Откуда </span>
         <TextField value={address} onChange={(e) => handleInput(e)} id="outlined-basic" label="Outlined" variant="outlined" />
       </div>
+      <OrderMap />
+      <CarsList />
       {isValidated && <div onClick={() => handleOrder}>Заказать</div>}
     </div>
 
