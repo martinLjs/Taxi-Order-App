@@ -1,17 +1,13 @@
 
 
 //actions
+
 export interface setAddressAction {
     type: string,
     payload: any,
 }
-// export interface setCoordinatesAction {
-//     type: string,
-//     payload: number[],
-// }
 
 export type UserAction = setAddressAction
-// export type UserAction = setAddressAction | setCoordinatesAction
 
 export enum UserActionTypes {
     SET_ADDRESS = 'SET_ADDRESS',
@@ -22,10 +18,21 @@ export enum UserActionTypes {
     SET_CARS = 'SET_CARS',
     SET_CLOSEST_CAR = 'SET_CLOSEST_CAR',
     SET_SELECTED_CAR = 'SET_SELECTED_CAR',
+    LAUNCH_ORDER = 'LAUNCH_ORDER',
 }
 
 //react
 export type jsx = Array<React.ComponentType> | null
+
+export interface orderData {
+    source_time: number,
+    addresses: {
+        address: string,
+        lat: number,
+        lon: number
+    }[],
+    crew_id: number
+}
 
 //states
 export interface CarInfo {
@@ -49,17 +56,16 @@ export interface OrderState {
     coordinates: Coordinates,
     isValidated: boolean,
     isLoading: boolean,
+    isOrderLaunched: boolean,
 }
 
 //requests
-// export interface UserOrderRequest {}
 
 export interface CarSearchRequest {
-    // формат времени ГГГГММДДччммсс 
-    //str or num?
     source_time: number,
     addresses: adressesList
 }
+
 export type adressesList = AddressInfo[]
 
 export interface AddressInfo {

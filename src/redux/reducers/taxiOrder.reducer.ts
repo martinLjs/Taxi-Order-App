@@ -7,17 +7,21 @@ const initialState: OrderState = {
     carsList: null,
     isValidated: false,
     isLoading: false,
+    isOrderLaunched: false
 }
 
 export default (state = initialState, action: UserAction): OrderState => {
     switch (action.type) {
 
-        case UserActionTypes.SET_ADDRESS:
-            return { ...state, address: action.payload, isValidated: false }
+
         case UserActionTypes.START_LOADING:
             return { ...state, isLoading: true }
         case UserActionTypes.FINISH_LOADING:
             return { ...state, isLoading: false }
+        case UserActionTypes.LAUNCH_ORDER:
+            return { ...state, isOrderLaunched: true }
+        case UserActionTypes.SET_ADDRESS:
+            return { ...state, address: action.payload, isValidated: false }
         case UserActionTypes.SET_COORDINATES:
             return { ...state, coordinates: action.payload }
         case UserActionTypes.SET_VALIDATED_STATUS:

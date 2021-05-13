@@ -1,16 +1,45 @@
-import { CarInfo, CarSearchRequest, CarsList } from './../../types/orderTaxi';
+import { CarInfo, CarSearchRequest, CarsList, orderData } from './../../types/orderTaxi';
 import { getData, getAddress } from './../../api/index';
 import { Coordinates, UserActionTypes } from '../../types/orderTaxi'
-import { stringify } from 'querystring';
-// export const setAddress = (address: string) => {
-//     return (dispatch: Dispatch<UserAction>) => {
-//         dispatch({ type: UserActionTypes.SET_ADDRESS, payload: address })
-//     }
 
-// }
+
+export const setAddress = (address: string) => {
+    return ({ type: UserActionTypes.SET_ADDRESS, payload: address })
+}
+export const setCoordinates = (coordinates: number[]) => {
+    return ({ type: UserActionTypes.SET_COORDINATES, payload: coordinates })
+}
+export const setValidateStatus = (val: boolean) => {
+    return ({ type: UserActionTypes.SET_VALIDATED_STATUS, payload: val })
+}
+export const setCars = (carsList: CarsList) => {
+    return ({ type: UserActionTypes.SET_CARS, payload: carsList })
+}
+export const setClosestCars = () => {
+    return ({ type: UserActionTypes.SET_CLOSEST_CAR })
+}
+export const selectCar = (id: number) => {
+    return ({ type: UserActionTypes.SET_SELECTED_CAR, payload: id })
+}
+
+
+export const loadOn = () => {
+    return ({ type: UserActionTypes.START_LOADING })
+}
+export const loadOff = () => {
+    return ({ type: UserActionTypes.FINISH_LOADING })
+}
+export const launchedOrder = () => {
+    return ({ type: UserActionTypes.LAUNCH_ORDER })
+}
+
+
+
+
+//thunks
+
 export const getPlace = (address: string) => {
     return (dispatch: any) => {
-        //Dispatch<UserAction> not any
         dispatch(loadOn())
         dispatch(setValidateStatus(false))
         getData(`https://geocode-maps.yandex.ru/1.x/?apikey=471e0e07-9df5-4819-90db-5510c94c00c4&format=json&geocode=${address}`)
@@ -64,7 +93,6 @@ export const setPlace = (coords: string) => {
 export const searchCar = (requestInfo: CarSearchRequest) => {
     return (dispatch: any) => {
         //send requestInfo on server
-
         const result = require('../../utils/mocks/carsList.json');
         if (result.code === 0) {
             const carsData = result.data.crews_info;
@@ -87,35 +115,17 @@ export const searchCar = (requestInfo: CarSearchRequest) => {
 
 
 }
-export const setAddress = (address: string) => {
-    return ({ type: UserActionTypes.SET_ADDRESS, payload: address })
-}
-export const setCoordinates = (coordinates: number[]) => {
-    return ({ type: UserActionTypes.SET_COORDINATES, payload: coordinates })
-}
-export const setValidateStatus = (val: boolean) => {
-    return ({ type: UserActionTypes.SET_VALIDATED_STATUS, payload: val })
-}
-export const setCars = (carsList: CarsList) => {
-    return ({ type: UserActionTypes.SET_CARS, payload: carsList })
-}
-export const setClosestCars = () => {
-    return ({ type: UserActionTypes.SET_CLOSEST_CAR })
-}
-export const selectCar = (id: number) => {
-    return ({ type: UserActionTypes.SET_SELECTED_CAR, payload: id })
-}
 
+export const createOrder = (data: orderData) => {
+    return (dispatch: any) => {
+        dispatch(loadOn())
+        //server request (order data)
+        //.then 
+        const response = require('../../utils/mocks/orderResult.json');
+        if (response.code === 0) {
+            dispatch(launchedOrder())
+        }
+        dispatch(loadOff())
 
-export const loadOn = () => {
-    return ({ type: UserActionTypes.START_LOADING })
+    }
 }
-export const loadOff = () => {
-    return ({ type: UserActionTypes.FINISH_LOADING })
-}
-
-
-
-
-//thunks
-

@@ -1,11 +1,13 @@
 .container
     margin: 20px 100px
     font-style: roboto
+
 .App__content
     display: flex
 
 .details
     border-bottom: 1px solid #000
+    width: 100%
 .selectedCar
     border: 2px solid #3f51b5
     display: inline-flex
@@ -16,16 +18,19 @@
 .car__name
     font-weight: 800
     font-size: 20px
+.car__number
+    border: 2px solid #111111
+    padding: 3px
+    display: inline
+
 .selectedCar__info
     display: flex
     flex-direction: column
     padding-left: 15px
     padding-right: 25px
-
-.car__number
-    border: 2px solid #111111
-    padding: 3px
-    display: inline
+.selectedCarWrapper
+    display: flex
+    align-items: baseline
 
 .carItem
     display: flex
@@ -45,14 +50,13 @@
 .carsListWrapper
     border: 2px solid #3f51b5
     margin-left: 30px
+
 .Form
     display: flex
     padding-bottom: 25px
     padding-top: 35px
     padding-left: 90px
-.selectedCarWrapper
-    display: flex
-    align-items: baseline
+
 .Button
     margin-top: 20px
     margin-left: 140px
