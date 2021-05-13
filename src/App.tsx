@@ -72,7 +72,6 @@ const App: React.FC = () => {
         ],
         crew_id: selectedCar.id
       }
-
       createOrder(orderData);
     }
   }
@@ -97,7 +96,8 @@ const App: React.FC = () => {
         <CarsList />
       </div>
 
-      {isValidated && <div onClick={() => handleOrder} className='Button'><Button color='primary' variant="contained">Заказать</Button></div>}
+      {isValidated && !isOrderlaunched && <div onClick={() => handleOrder()} className='Button'><Button color='primary' variant="contained">Заказать</Button></div>}
+      {isOrderlaunched && <div>Заказ Создан!</div>}
 
     </div>
 
