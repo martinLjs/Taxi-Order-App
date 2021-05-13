@@ -13,7 +13,7 @@ export default (state = initialState, action: UserAction): OrderState => {
     switch (action.type) {
 
         case UserActionTypes.SET_ADDRESS:
-            return { ...state, address: action.payload }
+            return { ...state, address: action.payload, isValidated: false }
         case UserActionTypes.START_LOADING:
             return { ...state, isLoading: true }
         case UserActionTypes.FINISH_LOADING:

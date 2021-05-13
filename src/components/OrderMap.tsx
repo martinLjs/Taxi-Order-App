@@ -12,7 +12,7 @@ const OrderMap: React.FC = () => {
     useEffect(() => {
         if (carsList && carsList.length !== 0) {
             const placemarks: any[] = carsList.map((car) =>
-                (<Placemark key={car.id} geometry={car.coordinates} />)
+                (<Placemark key={car.id} geometry={car.coordinates} options={{ preset: 'islands#yellowAutoIcon' }} />)
             )
             setCarsMarks(placemarks);
         }
@@ -33,7 +33,7 @@ const OrderMap: React.FC = () => {
                     controls: ['zoomControl', 'fullscreenControl'],
                 }}
                     modules={['control.ZoomControl', 'control.FullscreenControl', "geolocation", "geocode"]}>
-                    <Placemark geometry={coordinates} />
+                    <Placemark geometry={coordinates} options={{ preset: 'islands#redDotIcon' }} />
                     {carsMarks}
                 </Map>
             </YMaps>

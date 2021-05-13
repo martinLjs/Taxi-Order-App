@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useAction } from '../hooks/useAction';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 import { jsx } from '../types/orderTaxi'
-
+import LocalTaxiIcon from '@material-ui/icons/LocalTaxi';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 const CarsList: React.FC = () => {
 
@@ -13,11 +14,17 @@ const CarsList: React.FC = () => {
     useEffect(() => {
         if (carsList) {
             const carsInfo: any[] = carsList.map((car) =>
-                <div onClick={() => chooseCar(car.id)}>
-                    <div>icon</div>
-                    <div>{car.name}</div>
-                    <div>{car.color}</div>
-                    <div>{car.distance}</div>
+                <div className='carItem' onClick={() => chooseCar(car.id)}>
+                    <LocalTaxiIcon />
+                    <div className='carItem__info'>
+                        <div className='carItem__name'>{car.name}</div>
+                        <div className='row'>
+                            <div>{car.color}</div>
+                            <div>{car.distance + ' m'}</div>
+                        </div>
+
+                    </div>
+                    <ArrowForwardIosIcon />
                 </div>
 
             )
@@ -30,7 +37,7 @@ const CarsList: React.FC = () => {
         selectCar(id);
     }
     return (
-        <div>
+        <div className='carsListWrapper'>
             {cars}
         </div>
     )

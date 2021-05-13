@@ -12,6 +12,7 @@ export const getPlace = (address: string) => {
     return (dispatch: any) => {
         //Dispatch<UserAction> not any
         dispatch(loadOn())
+        dispatch(setValidateStatus(false))
         getData(`https://geocode-maps.yandex.ru/1.x/?apikey=471e0e07-9df5-4819-90db-5510c94c00c4&format=json&geocode=${address}`)
             .then(
                 (res: any) => {
@@ -20,7 +21,7 @@ export const getPlace = (address: string) => {
                         const addresses = res.response.GeoObjectCollection.featureMember;
                         const relevantAdresses = addresses.filter((e: any) => e.GeoObject.description === 'Москва, Россия')
                         if (relevantAdresses.length !== 0) {
-                            const addressCoordinates = addresses[0].GeoObject.Point.pos.split(' ');
+                            const addressCoordinates = relevantAdresses[0].GeoObject.Point.pos.split(' ');
                             const newCoordinates = [Number(addressCoordinates[1]), Number(addressCoordinates[0])]
                             dispatch(setCoordinates(newCoordinates))
                             dispatch(setValidateStatus(true))
@@ -41,6 +42,7 @@ export const setPlace = (coords: string) => {
             .map(i => Number(i));
 
         dispatch(loadOn())
+        dispatch(setValidateStatus(false))
         getAddress(coords).then(
             (res: any) => {
                 dispatch(loadOff())
