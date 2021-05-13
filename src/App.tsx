@@ -34,9 +34,7 @@ const App: React.FC = () => {
   }));
   const classes = useStyles();
 
-  if (isOrderlaunched) {
-    alert('Заказ создан')
-  }
+
 
   useEffect(() => {
     if (isValidated) {
