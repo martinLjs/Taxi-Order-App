@@ -1,7 +1,16 @@
-.container
-    margin: 20px 100px
-    font-style: roboto
-
+@font-face
+  font-family: "roboto"
+  src: url(./fonts/Roboto-LightItalic.ttf)
+html
+    font-family: "roboto"
+    overflow-x: hidden
+body
+    overflow-x: hidden
+.App
+    padding: 5px
+    display: flex
+    flex-direction: column
+    flex-shrink: 1
 .App__content
     display: flex
 
@@ -10,9 +19,10 @@
     width: 100%
 .selectedCar
     border: 2px solid #3f51b5
+    border-radius: 15px
     display: inline-flex
     padding: 15px
-    margin-left: 30px
+    margin-top: 15px
     margin-bottom: 50px
 
 .car__name
@@ -31,6 +41,7 @@
 .selectedCarWrapper
     display: flex
     align-items: baseline
+    margin-top: 15px
 
 .carItem
     display: flex
@@ -48,18 +59,16 @@
     flex-direction: row
     justify-content: space-between
 .carsListWrapper
+    margin-top: 15px
     border: 2px solid #3f51b5
-    margin-left: 30px
-
-.Form
+    border-radius: 15px
+.form
     display: flex
-    padding-bottom: 25px
-    padding-top: 35px
-    padding-left: 90px
-
-.Button
+    align-items: center
+    margin-top: 15px
+.button
     margin-top: 20px
-    margin-left: 140px
-
 .input
     margin-left: 30px
+.order-alert
+    margin-top: 15px

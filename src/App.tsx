@@ -76,26 +76,26 @@ const App: React.FC = () => {
 
 
   return (
-    <div className='container'>
+    <div className='App'>
 
       <div className='details'>Детали заказа</div>
 
-      <div className='Form'>
+      <div className='form'>
         <div>Откуда </div>
         <div className={classes.textField}>
-          <TextField value={address} style={{ margin: 8 }} fullWidth onChange={(e) => handleInput(e)} id="outlined-basic filled-full-width" label="Outlined" variant="outlined" />
+          <TextField value={address} style={{ margin: 8 }} onChange={(e) => handleInput(e)} id="outlined-basic filled-full-width" label="Outlined" variant="outlined" />
         </div>
       </div>
 
       <SelectedCar />
 
-      <div className='App__content'>
+      <div className='app__content'>
         <OrderMap />
         <CarsList />
       </div>
 
-      {isValidated && !isOrderlaunched && <div onClick={() => handleOrder()} className='Button'><Button color='primary' variant="contained">Заказать</Button></div>}
-      {isOrderlaunched && <div>Заказ Создан!</div>}
+      {isValidated && !isOrderlaunched && <div onClick={() => handleOrder()} className='button'><Button color='primary' variant="contained">Заказать</Button></div>}
+      {isOrderlaunched && <div className='order-alert'>Заказ Создан!</div>}
 
     </div>
 

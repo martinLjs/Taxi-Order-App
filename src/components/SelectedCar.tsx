@@ -6,7 +6,7 @@ const SelectedCar: React.FC = () => {
 
     const carInfo = useTypedSelector(state => state.order.closestCar)
     const carElement = carInfo ?
-        <div className='selectedCarWrapper'>
+        <div className='Wrapper'>
 
             <div>Подходящий экипаж</div>
 

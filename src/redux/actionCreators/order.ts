@@ -98,7 +98,7 @@ export const searchCar = (requestInfo: CarSearchRequest) => {
             const carsData = result.data.crews_info;
             const cars: CarsList = carsData.map((car: any) =>
                 ({
-                    name: car.car_mark + car.car_model,
+                    name: car.car_mark + ' ' +car.car_model,
                     color: car.car_color,
                     distance: car.distance,
                     number: car.car_number,
