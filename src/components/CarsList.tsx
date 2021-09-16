@@ -14,11 +14,11 @@ const CarsList: React.FC = () => {
     useEffect(() => {
         if (carsList) {
             const carsInfo: any[] = carsList.map((car) =>
-                <div className='carItem' onClick={() => chooseCar(car.id)}>
+                <div className='car-item' onClick={() => chooseCar(car.id)}>
                     <LocalTaxiIcon />
-                    <div className='carItem__info'>
-                        <div className='carItem__name'>{car.name}</div>
-                        <div className='row'>
+                    <div className='car-item__info'>
+                        <div className='car-item__name'>{car.name}</div>
+                        <div className='car-item__row'>
                             <div>{car.color}</div>
                             <div>{car.distance + ' m'}</div>
                         </div>
@@ -37,7 +37,7 @@ const CarsList: React.FC = () => {
         selectCar(id);
     }
     return (
-        <div className='carsListWrapper'>
+        <div className='cars-list'>
             {cars}
         </div>
     )

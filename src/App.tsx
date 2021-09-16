@@ -76,9 +76,9 @@ const App: React.FC = () => {
 
 
   return (
-    <div className='App'>
+    <div className='app'>
 
-      <div className='details'>Детали заказа</div>
+      <div className='app__details'>Детали заказа</div>
 
       <div className='form'>
         <div>Откуда </div>
@@ -95,7 +95,7 @@ const App: React.FC = () => {
       </div>
 
       {isValidated && !isOrderlaunched && <div onClick={() => handleOrder()} className='button'><Button color='primary' variant="contained">Заказать</Button></div>}
-      {isOrderlaunched && <div className='order-alert'>Заказ Создан!</div>}
+      {isOrderlaunched && <div className='app__order-alert'>Заказ Создан!</div>}
 
     </div>
 

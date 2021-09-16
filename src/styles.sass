@@ -1,23 +1,34 @@
 @font-face
   font-family: "roboto"
   src: url(./fonts/Roboto-LightItalic.ttf)
+
 html
     font-family: "roboto"
     overflow-x: hidden
+
 body
     overflow-x: hidden
-.App
+
+
+.app
     padding: 5px
     display: flex
     flex-direction: column
     flex-shrink: 1
-.App__content
-    display: flex
 
-.details
+.app__content
+    display: flex
+    flex-direction: column
+
+.app__details
     border-bottom: 1px solid #000
     width: 100%
-.selectedCar
+
+.app__order-alert
+    margin-top: 15px
+
+
+.selected-car
     border: 2px solid #3f51b5
     border-radius: 15px
     display: inline-flex
@@ -25,50 +36,59 @@ body
     margin-top: 15px
     margin-bottom: 50px
 
-.car__name
+.selected-car__name
     font-weight: 800
     font-size: 20px
-.car__number
+
+.selected-car__number
     border: 2px solid #111111
     padding: 3px
     display: inline
 
-.selectedCar__info
+.selected-car__info
     display: flex
     flex-direction: column
     padding-left: 15px
     padding-right: 25px
-.selectedCarWrapper
+
+.selected-car-wrapper
     display: flex
     align-items: baseline
     margin-top: 15px
 
-.carItem
+
+.car-item
     display: flex
     cursor: pointer
     border-bottom: 1px solid gray
     padding-top: 5px
     margin-bottom: 5px
-.carItem__info
+
+.car-item__info
     padding: 0 15px
-.carItem__name
+
+.car-item__name
     font-weight: 800
     font-size: 20px
-.row
+
+.car-item__row
     display: flex
     flex-direction: row
     justify-content: space-between
-.carsListWrapper
+
+
+.cars-list
     margin-top: 15px
     border: 2px solid #3f51b5
     border-radius: 15px
+
 .form
     display: flex
     align-items: center
     margin-top: 15px
+
 .button
     margin-top: 20px
+    
 .input
     margin-left: 30px
-.order-alert
-    margin-top: 15px

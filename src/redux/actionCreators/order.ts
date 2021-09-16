@@ -1,6 +1,6 @@
-import { CarInfo, CarSearchRequest, CarsList, orderData } from './../../types/orderTaxi';
+import { CarSearchRequest, CarsList, orderData } from './../../types/orderTaxi';
 import { getData, getAddress } from './../../api/index';
-import { Coordinates, UserActionTypes } from '../../types/orderTaxi'
+import { UserActionTypes } from '../../types/orderTaxi'
 
 
 export const setAddress = (address: string) => {
